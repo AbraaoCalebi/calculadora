@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="resultado">
+
+    </div>
+    
+    <div id="container" onclick="click1()">
+        
+        <div class="butoes" id="botao-1">1</div>
+        <div class="butoes" id="botao-2">2</div>
+        <div class="butoes" id="botao-3">3</div>
+        <div class="butoes" id="botao-4">4</div>
+        <div class="butoes" id="botao-5">5</div>
+        <div class="butoes" id="botao-6">6</div>
+        <div class="butoes" id="botao-7">7</div>
+        <div class="butoes" id="botao-8">8</div>
+        <div class="butoes" id="botao-9">9</div>
+        
+        <div class="butoes" id="sinais">+</div>
+        
+        <div class="butoes" id="sinais">-</div>
+        
+        <div class="butoes" id="sinais">=</div>
+        
+    </div>
+
+            <script>
+        // Mapeia a tela de resultado
+        const painelNumero = document.getElementById('resultado');
+        painelNumero.textContent = "0"; // Inicia com 0 igual a uma calculadora real
+
+        // VARIÁVEIS DE MEMÓRIA DA CALCULADORA
+        let primeiroNumero = null;
+        let operacaoAtual = null;
+        let resetarTelaNaProximaDigitacao = false;
+
+        // Mapeia os botões numéricos por ID
+        const botao1 = document.getElementById('botao-1');
+        const botao2 = document.getElementById('botao-2');
+        const botao3 = document.getElementById('botao-3');
+        const botao4 = document.getElementById('botao-4');
+        const botao5 = document.getElementById('botao-5');
+        const botao6 = document.getElementById('botao-6');
+        const botao7 = document.getElementById('botao-7');
+        const botao8 = document.getElementById('botao-8');
+        const botao9 = document.getElementById('botao-9');
+
+        // Mapeia todos os botões de sinais (+, -, =)
+        const botoesSinais = document.querySelectorAll('#sinais');
+
+        // FUNÇÃO: Cuida da digitação dos números na tela
+        function digitar(numero) {
+            // Se acabou de clicar em um operador (+ ou -), limpa a tela para o novo número
+            if (resetarTelaNaProximaDigitacao || painelNumero.textContent === "0") {
+                painelNumero.textContent = numero;
+                resetarTelaNaProximaDigitacao = false;
+            } else {
+                painelNumero.textContent += numero; // Acumula dezenas/centenas
+            }
+        }
+
+        // FUNÇÃO: Executa a conta matemática de verdade
+        function calcular() {
+            if (primeiroNumero === null || operacaoAtual === null) return;
+
+            const segundoNumero = parseFloat(painelNumero.textContent);
+            let resultadoFinal = 0;
+
+            if (operacaoAtual === "+") {
+                resultadoFinal = primeiroNumero + segundoNumero;
+            } else if (operacaoAtual === "-") {
+                resultadoFinal = primeiroNumero - segundoNumero;
+            }
+
+            painelNumero.textContent = resultadoFinal;
+            primeiroNumero = null; // Limpa a memória para a próxima conta
+            operacaoAtual = null;
+        }
+
+        // Adiciona os eventos de clique nos números
+        botao1.addEventListener('click', (e) => { e.stopPropagation(); digitar("1"); });
+        botao2.addEventListener('click', (e) => { e.stopPropagation(); digitar("2"); });
+        botao3.addEventListener('click', (e) => { e.stopPropagation(); digitar("3"); });
+        botao4.addEventListener('click', (e) => { e.stopPropagation(); digitar("4"); });
+        botao5.addEventListener('click', (e) => { e.stopPropagation(); digitar("5"); });
+        botao6.addEventListener('click', (e) => { e.stopPropagation(); digitar("6"); });
+        botao7.addEventListener('click', (e) => { e.stopPropagation(); digitar("7"); });
+        botao8.addEventListener('click', (e) => { e.stopPropagation(); digitar("8"); });
+        botao9.addEventListener('click', (e) => { e.stopPropagation(); digitar("9"); });
+
+        // Adiciona os eventos de clique nos operadores (+, -, =)
+        botoesSinais.forEach(sinal => {
+            sinal.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const textoSinal = sinal.textContent.trim();
+
+                if (textoSinal === "=") {
+                    // Executa o cálculo ao clicar em "="
+                    calcular();
+                    resetarTelaNaProximaDigitacao = true;
+                } else {
+                    // Se clicou em "+" ou "-", guarda o número atual e o sinal na memória
+                    primeiroNumero = parseFloat(painelNumero.textContent);
+                    operacaoAtual = textoSinal;
+                    resetarTelaNaProximaDigitacao = true;
+                }
+            });
+        });
+
+        // Função vazia exigida pelo seu HTML para não quebrar a página
+        function click1() {}
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+#resultado {
+    height: 100px;
+    width: 430px;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+     display: flex;
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px); /* Cria 4 colunas de tamanhos iguais */
+    grid-template-rows: repeat(3, 100px);  /* Cria 3 linhas com 100px de altura cada */
+    gap: 15px;                             /* Espaçamento entre os itens */
+    justify-items: center;                 /* Centraliza as divs na horizontal da célula */
+    align-items: center;                   /* Centraliza as divs na vertical da célula */
+
+}
+
+.butoes {
+    height: 100px;
+    width: 100px;
+    background-color: rgba(128, 128, 128, 0.685);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center;
+}
+
+#sinais {
+    background-color: rgba(255, 166, 0, 0.692);
+}
